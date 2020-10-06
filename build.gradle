@@ -1,0 +1,90 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.6.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+apply plugin: 'war'
+
+
+war {
+    baseName = 'plusPlmT'
+    version =  '0.2.0'
+}
+
+
+buildscript {
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.2"
+  }
+}
+
+apply plugin: "org.sonarqube"
+
+
+repositories {
+    jcenter()
+    maven { url "http://repo.spring.io/libs-snapshot" }
+}
+
+task print(){
+	doLast{
+		println "github push complete"
+	}
+}
+
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+dependencies {
+    compile group: 'javax.persistence', name: 'persistence-api', version:'1.0'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-rest
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-rest', version: '1.5.6.RELEASE'
+    // https://mvnrepository.com/artifact/com.jcraft/jsch
+	compile group: 'com.jcraft', name: 'jsch', version: '0.1.54'
+
+	compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '1.5.6.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version:'1.5.6.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'1.5.6.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version:'1.5.6.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-configuration-processor', version:'1.5.6.RELEASE'
+    compile group: 'org.assertj', name: 'assertj-core', version:'2.6.0'
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version:'0.7.0'
+    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'1.5.6.RELEASE') {
+        exclude(module: 'commons-logging')
+    }
+    
+    
+    testCompile group: 'com.jayway.restassured', name: 'rest-assured', version:'2.9.0'
+}
+
+	dependencies {
+    compile 'com.google.code.gson:gson:2.8.2'
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+	compile group: 'org.apache.poi', name: 'poi', version: '3.13'
+	compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.13'
+    }
+
+	// LDAP
+    dependencies {
+    // https://mvnrepository.com/artifact/com.unboundid/unboundid-ldapsdk
+	testCompile group: 'com.unboundid', name: 'unboundid-ldapsdk', version: '1.1.6'
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-ldap
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-ldap', version: '1.5.1.RELEASE'
+	// https://mvnrepository.com/artifact/com.auth0/java-jwt
+	compile group: 'com.auth0', name: 'java-jwt', version: '3.4.0'
+
+}
